@@ -6,6 +6,9 @@ e = 65537
 # n = p . q
 #p = ?
 #q = ?
+#Ke = (n,e)
+#Kd= (n,d)
+#c=m^e mod n
 
 #qq = (p.1)(q.1) = z
 #d.e mod(qq) = 1
