@@ -51,10 +51,13 @@ for y in range(qq):
         break
 
 print(d)
-a = 3273204705651769058**d
+a = pow(3273204705651769058, d, n)
 print(a)
-b = a%n
-print(b)
+print("Letter: " + str(a))
+# a = 3273204705651769058**d
+# print(a)
+# b = a%n
+# print(b)
 # print((3273204705651769058**d)%n)
 # print((646988929665855640**d)%n)
 # print((414039851588460319**d)%n)
