@@ -12,68 +12,76 @@ from math import sqrt; from itertools import count, islice
 n = 3386871005523622783
 e = 65537
 
-def isPrime(n):
-    if n < 2:
-        return False
+msgArray = [
+    3273204705651769058,
+    646988929665855640,
+    414039851588460319,
+    1564884230541949829,
+    2061518062454276150,
+    531123879758565307,
+    577351741551993872,
+    2354366801187868444,
+    531123879758565307,
+    1045758354504410760,
+    114322492855077014,
+    2087794601428009825,
+    3233175618851774368,
+    531123879758565307,
+    2877578967909742608,
+    1445428592792218022
+]
 
-    for number in islice(count(2), int(sqrt(n) - 1)):
-        if n % number == 0:
-            return False
+def createPhrase(array):
+    phrase = ""
+    for l in array:
+        phrase = phrase + chr(l)
+    print(phrase)
 
-    return True
+def decryptArray(d, n):
+    arrayDecrypt = []
+
+    for c in msgArray:
+        arrayDecrypt.append(
+            pow(c, d, n)
+        )
+    return arrayDecrypt
+
+def modInverse(e,qq):
+	g,x,y = eqq(e,qq)
+	if g != 1:
+		return None
+	else:
+		return x%qq
+
+def eqq(e, qq):
+	if e == 0:
+		return (qq, 0, 1)
+	else:
+		g, y, x = eqq(qq % e, e)
+		return (g, x - (qq // e) * y, y)
 
 w = 1
 p = int(0)
 q = int(0)
-
-for x in range(n):
-    x = int(x+2087378595)
-    if isPrime(x):
-        k = int(n/x)
-        if isPrime(k):
-            j = int(x * k)
-            if n == j:
-                p = int(x)
-                q = int(k)
-                print("P = ", q)
-                print("Q = ", q)
-                break
+x = int(sqrt(n))
+if((x & 1) == 0):
+    x = x-1
+x = int(x)
+while True:
+    if(n%x == 0):
+        p = x
+        q = n/x
+        print("Q:",q)
+        print("P:",p)
+        break
+    x = x+2
 
 qq = int((p-1)*(q-1))
-print("QQ = ", qq)
-d = int(0)
-for y in range(qq):
-    y  = int(y+489242836476650830)
-    h = int(y*e%qq)
-    if(h == 1):
-        print("D = ", y)
-        d = y
-        break
+print("QQ:", qq)
 
-print(d)
-a = pow(3273204705651769058, d, n)
-print(a)
-print("Letter: " + str(a))
-# a = 3273204705651769058**d
-# print(a)
-# b = a%n
-# print(b)
-# print((3273204705651769058**d)%n)
-# print((646988929665855640**d)%n)
-# print((414039851588460319**d)%n)
-# print((1564884230541949829**d)%n)
-# print((2061518062454276150**d)%n)
-# print((531123879758565307**d)%n)
-# print((577351741551993872**d)%n)
-# print((2354366801187868444**d)%n)
-# print((531123879758565307**d)%n)
-# print((1045758354504410760**d)%n)
-# print((114322492855077014**d)%n)
-# print((2087794601428009825**d)%n)
-# print((3233175618851774368**d)%n)
-# print((531123879758565307**d)%n)
-# print((2877578967909742608**d)%n)
-# print((1445428592792218022**d)%n)
+d = modInverse(e, qq)
 
+print("D:", d)
 
-print("Banana")
+msgDecrypt = decryptArray(d, n)
+createPhrase(msgDecrypt)
