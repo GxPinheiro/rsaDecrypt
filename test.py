@@ -1,6 +1,4 @@
 
-Bruno - Plataforma @bruno.heinrich 11:38
-```
 n = 3386871005523622783
 e = 65537
 msgArray = [
